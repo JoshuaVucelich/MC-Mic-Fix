@@ -1,0 +1,363 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04AB3E394CB6E7C1232F034F /* LauncherSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46619A672B90160D9C86E10 /* LauncherSpawner.swift */; };
+		19BF0B65227908DAF82EBB40 /* SMLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225BAA966831B059CF013F9 /* SMLogin.swift */; };
+		24087DBBDD2F05ADD53EB59F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D15631B3805CDB4C4C47FAE1 /* Assets.xcassets */; };
+		48209AD547ED095F0D4DD939 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9331DD6BA1D0DAC415E50 /* AppState.swift */; };
+		4E6B116DCB88263A4E55261B /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFA84BA55CFB3BC115B1513 /* MenuBarView.swift */; };
+		8D9A6FC7DE9DD559365D1E3D /* MCMicFixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13180808BDA28E84300011 /* MCMicFixApp.swift */; };
+		8E7E6AEBDFC27E8151D0B315 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9827D1DF4CC19D1F850418 /* SettingsView.swift */; };
+		9000A3C4CF0F1FB9F158057E /* LauncherCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907BC75F5737694D467DFE02 /* LauncherCatalog.swift */; };
+		97CB37830F11FBEC4B149A36 /* LauncherWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97534249AD7972C330D8046A /* LauncherWatcher.swift */; };
+		9DF356098E800982905F34E7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A876E43758EBB72413465C /* OnboardingView.swift */; };
+		AC5BD9A3AB5C2F2E67617445 /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867EEBC47C714FB9A992510 /* MenuBarLabel.swift */; };
+		B392D66C0B96952C75878CE7 /* MicLevelMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742BDC74BACD5CEA58CD4BAA /* MicLevelMeter.swift */; };
+		CE0EB6B31D1AEE3BDEAC0973 /* MicPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475C3FA2B478DC65F48BE361 /* MicPermission.swift */; };
+		E443B8794A67729035505D5F /* JavaOptionsPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2FBFB180F4435A16844561 /* JavaOptionsPreset.swift */; };
+		F507E52EE61DDC95E01721B1 /* MicMeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFB3EC65426D43523B12B05 /* MicMeterView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0867EEBC47C714FB9A992510 /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarLabel.swift; sourceTree = "<group>"; };
+		0F13180808BDA28E84300011 /* MCMicFixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCMicFixApp.swift; sourceTree = "<group>"; };
+		2D9827D1DF4CC19D1F850418 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3225BAA966831B059CF013F9 /* SMLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLogin.swift; sourceTree = "<group>"; };
+		475C3FA2B478DC65F48BE361 /* MicPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicPermission.swift; sourceTree = "<group>"; };
+		6D2FBFB180F4435A16844561 /* JavaOptionsPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaOptionsPreset.swift; sourceTree = "<group>"; };
+		742BDC74BACD5CEA58CD4BAA /* MicLevelMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicLevelMeter.swift; sourceTree = "<group>"; };
+		907BC75F5737694D467DFE02 /* LauncherCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherCatalog.swift; sourceTree = "<group>"; };
+		97534249AD7972C330D8046A /* LauncherWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherWatcher.swift; sourceTree = "<group>"; };
+		A46619A672B90160D9C86E10 /* LauncherSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherSpawner.swift; sourceTree = "<group>"; };
+		B1A876E43758EBB72413465C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		BEFB3EC65426D43523B12B05 /* MicMeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicMeterView.swift; sourceTree = "<group>"; };
+		CCFA84BA55CFB3BC115B1513 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		D15631B3805CDB4C4C47FAE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E9A9331DD6BA1D0DAC415E50 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		FB89B6A67B92892130AED0B3 /* MC Mic Fix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MC Mic Fix.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		676BA904E23F05139CC63813 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FB89B6A67B92892130AED0B3 /* MC Mic Fix.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		95D13185002530AFF2510626 = {
+			isa = PBXGroup;
+			children = (
+				FE30A284C86CC9D094892D20 /* MCMicFix */,
+				676BA904E23F05139CC63813 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FE30A284C86CC9D094892D20 /* MCMicFix */ = {
+			isa = PBXGroup;
+			children = (
+				E9A9331DD6BA1D0DAC415E50 /* AppState.swift */,
+				D15631B3805CDB4C4C47FAE1 /* Assets.xcassets */,
+				6D2FBFB180F4435A16844561 /* JavaOptionsPreset.swift */,
+				907BC75F5737694D467DFE02 /* LauncherCatalog.swift */,
+				A46619A672B90160D9C86E10 /* LauncherSpawner.swift */,
+				97534249AD7972C330D8046A /* LauncherWatcher.swift */,
+				0F13180808BDA28E84300011 /* MCMicFixApp.swift */,
+				0867EEBC47C714FB9A992510 /* MenuBarLabel.swift */,
+				CCFA84BA55CFB3BC115B1513 /* MenuBarView.swift */,
+				742BDC74BACD5CEA58CD4BAA /* MicLevelMeter.swift */,
+				BEFB3EC65426D43523B12B05 /* MicMeterView.swift */,
+				475C3FA2B478DC65F48BE361 /* MicPermission.swift */,
+				B1A876E43758EBB72413465C /* OnboardingView.swift */,
+				2D9827D1DF4CC19D1F850418 /* SettingsView.swift */,
+				3225BAA966831B059CF013F9 /* SMLogin.swift */,
+			);
+			path = MCMicFix;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7BC00FD90D844AED32753A23 /* MC Mic Fix */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CBAAF7152E06BE33FB4D072 /* Build configuration list for PBXNativeTarget "MC Mic Fix" */;
+			buildPhases = (
+				1A073CCBEA66584385325CD7 /* Sources */,
+				7B2660E3524CC13054926AEB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MC Mic Fix";
+			packageProductDependencies = (
+			);
+			productName = "MC Mic Fix";
+			productReference = FB89B6A67B92892130AED0B3 /* MC Mic Fix.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5E8DD7E62425A1D8B5F8C19F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					7BC00FD90D844AED32753A23 = {
+						DevelopmentTeam = CX3YG978N4;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 09D5044985BD997423F6EB25 /* Build configuration list for PBXProject "MC Mic Fix" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 95D13185002530AFF2510626;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 676BA904E23F05139CC63813 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7BC00FD90D844AED32753A23 /* MC Mic Fix */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7B2660E3524CC13054926AEB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24087DBBDD2F05ADD53EB59F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1A073CCBEA66584385325CD7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48209AD547ED095F0D4DD939 /* AppState.swift in Sources */,
+				E443B8794A67729035505D5F /* JavaOptionsPreset.swift in Sources */,
+				9000A3C4CF0F1FB9F158057E /* LauncherCatalog.swift in Sources */,
+				04AB3E394CB6E7C1232F034F /* LauncherSpawner.swift in Sources */,
+				97CB37830F11FBEC4B149A36 /* LauncherWatcher.swift in Sources */,
+				8D9A6FC7DE9DD559365D1E3D /* MCMicFixApp.swift in Sources */,
+				AC5BD9A3AB5C2F2E67617445 /* MenuBarLabel.swift in Sources */,
+				4E6B116DCB88263A4E55261B /* MenuBarView.swift in Sources */,
+				B392D66C0B96952C75878CE7 /* MicLevelMeter.swift in Sources */,
+				F507E52EE61DDC95E01721B1 /* MicMeterView.swift in Sources */,
+				CE0EB6B31D1AEE3BDEAC0973 /* MicPermission.swift in Sources */,
+				9DF356098E800982905F34E7 /* OnboardingView.swift in Sources */,
+				19BF0B65227908DAF82EBB40 /* SMLogin.swift in Sources */,
+				8E7E6AEBDFC27E8151D0B315 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		36B8D70FC9AA025091AE5F3A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MCMicFix/MCMicFix.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MCMicFix/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vwsdigital.MCMicFix;
+				PRODUCT_NAME = "MC Mic Fix";
+				SDKROOT = macosx;
+				SWIFT_STRICT_CONCURRENCY = complete;
+			};
+			name = Release;
+		};
+		400AA6D32710E0FE5029B333 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = CX3YG978N4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		73B1837976C8C87F32179FC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MCMicFix/MCMicFix.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MCMicFix/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vwsdigital.MCMicFix;
+				PRODUCT_NAME = "MC Mic Fix";
+				SDKROOT = macosx;
+				SWIFT_STRICT_CONCURRENCY = complete;
+			};
+			name = Debug;
+		};
+		F5C296B253970C23727CC810 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = CX3YG978N4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		09D5044985BD997423F6EB25 /* Build configuration list for PBXProject "MC Mic Fix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5C296B253970C23727CC810 /* Debug */,
+				400AA6D32710E0FE5029B333 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7CBAAF7152E06BE33FB4D072 /* Build configuration list for PBXNativeTarget "MC Mic Fix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73B1837976C8C87F32179FC1 /* Debug */,
+				36B8D70FC9AA025091AE5F3A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5E8DD7E62425A1D8B5F8C19F /* Project object */;
+}

@@ -1,0 +1,56 @@
+name: MC Mic Fix
+options:
+  bundleIdPrefix: com.vwsdigital
+  deploymentTarget:
+    macOS: "27.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "27.0"
+    DEVELOPMENT_TEAM: CX3YG978N4
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_HARDENED_RUNTIME: YES
+    CURRENT_PROJECT_VERSION: 1
+    MARKETING_VERSION: "1.0.0"
+targets:
+  MC Mic Fix:
+    type: application
+    platform: macOS
+    sources:
+      - path: MCMicFix
+        excludes:
+          - Info.plist
+          - MCMicFix.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.vwsdigital.MCMicFix
+        PRODUCT_NAME: MC Mic Fix
+        INFOPLIST_FILE: MCMicFix/Info.plist
+        CODE_SIGN_ENTITLEMENTS: MCMicFix/MCMicFix.entitlements
+        ENABLE_HARDENED_RUNTIME: YES
+        COMBINE_HIDPI_IMAGES: YES
+        LD_RUNPATH_SEARCH_PATHS: "@executable_path/../Frameworks"
+        GENERATE_INFOPLIST_FILE: NO
+        SWIFT_STRICT_CONCURRENCY: complete
+
+    postcompileScripts:
+      - name: Strip AppleDouble
+        script: |
+          # Extreme Pro (exFAT/AFP) drops AppleDouble "._*" files that break codesign.
+          find "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}" -name '._*' -delete 2>/dev/null || true
+          find "${TARGET_BUILD_DIR}/${WRAPPER_NAME}" -name '._*' -delete 2>/dev/null || true
+    entitlements:
+      path: MCMicFix/MCMicFix.entitlements
+      properties:
+        com.apple.security.device.audio-input: true
+schemes:
+  MC Mic Fix:
+    build:
+      targets:
+        MC Mic Fix: all
+    run:
+      config: Debug
+    archive:
+      config: Release
