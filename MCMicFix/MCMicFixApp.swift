@@ -1,5 +1,4 @@
 import SwiftUI
-import UserNotifications
 
 @main
 struct MCMicFixApp: App {
@@ -13,7 +12,8 @@ struct MCMicFixApp: App {
         }
         .menuBarExtraStyle(.window)
 
-        Window("MC Mic Fix Settings", id: "settings") {
+        // Standard Settings scene (opened via SettingsLink). Does not auto-open at launch.
+        Settings {
             SettingsView(state: state)
                 .frame(minWidth: 420, minHeight: 360)
         }
@@ -22,9 +22,6 @@ struct MCMicFixApp: App {
             OnboardingView(state: state)
                 .frame(width: 480, height: 360)
         }
-    }
-
-    init() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }
+        .defaultLaunchBehavior(.suppressed)
     }
 }

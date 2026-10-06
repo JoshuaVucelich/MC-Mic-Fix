@@ -6,7 +6,20 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section("Startup") {
-                Toggle("Launch at Login", isOn: $state.launchAtLoginEnabled)
+                Toggle("Launch at Login", isOn: Binding(
+                    get: { state.launchAtLoginEnabled },
+                    set: { state.setLaunchAtLogin($0) }
+                ))
+                if let message = state.loginItemMessage {
+                    Text(message)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                if state.showOpenLoginItemsButton {
+                    Button("Open Login Items Settings") {
+                        SMLogin.openLoginItemsSettings()
+                    }
+                }
             }
 
             Section("Watch launchers") {
@@ -34,7 +47,10 @@ struct SettingsView: View {
             }
 
             Section("About") {
-                LabeledContent("Version", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0")
+                LabeledContent(
+                    "Version",
+                    value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—"
+                )
                 Text("MC Mic Fix keeps itself as the macOS responsible process when starting your launcher, so Minecraft voice-chat mods can use the microphone.")
                     .font(.caption)
                     .foregroundStyle(.secondary)

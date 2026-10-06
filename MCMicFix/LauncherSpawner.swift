@@ -4,7 +4,7 @@ import AppKit
 enum LauncherSpawnError: LocalizedError {
     case missingExecutable(URL)
     case spawnFailed(String)
-    case alreadyRunning
+    case stillRunning(String)
 
     var errorDescription: String? {
         switch self {
@@ -12,8 +12,8 @@ enum LauncherSpawnError: LocalizedError {
             return "Executable not found: \(url.path)"
         case .spawnFailed(let message):
             return message
-        case .alreadyRunning:
-            return "That launcher is already running."
+        case .stillRunning(let name):
+            return "\(name) is still running. Quit it completely, then try again."
         }
     }
 }
@@ -22,8 +22,10 @@ enum LauncherSpawnError: LocalizedError {
 /// *responsible process* so the microphone grant applies to Minecraft/Java.
 @MainActor
 final class LauncherSpawner {
-    /// PIDs we started (and any still-running children we track).
-    private(set) var childPIDs: Set<Int32> = []
+    /// Live Process objects keyed by pid (kept so terminationHandler stays valid).
+    private var processes: [Int32: Process] = [:]
+
+    var childPIDs: Set<Int32> { Set(processes.keys) }
 
     /*
      RESPONSIBILITY / TCC — READ BEFORE CHANGING THIS FILE
@@ -53,8 +55,12 @@ final class LauncherSpawner {
             throw LauncherSpawnError.missingExecutable(exe)
         }
 
-        // Reap finished children from our set.
-        childPIDs = Set(childPIDs.filter { kill($0, 0) == 0 })
+        // Abort if an instance is still running (by bundle id) — never spawn over it.
+        if Self.isAppRunning(bundleIdentifier: launcher.bundleIdentifier, appURL: launcher.appURL) {
+            throw LauncherSpawnError.stillRunning(launcher.displayName)
+        }
+
+        reapFinished()
 
         let process = Process()
         process.executableURL = exe
@@ -63,48 +69,95 @@ final class LauncherSpawner {
 
         var env = ProcessInfo.processInfo.environment
         if javaOptionsEnabled, let flags = preset.jvmFlags, !flags.isEmpty {
-            // Optional / legacy only — not required for the mic fix.
             env["_JAVA_OPTIONS"] = flags
             env["JDK_JAVA_OPTIONS"] = flags
         } else {
-            // Do not inherit a stale parent value into the child.
             env.removeValue(forKey: "_JAVA_OPTIONS")
             env.removeValue(forKey: "JDK_JAVA_OPTIONS")
         }
         process.environment = env
 
-        process.terminationHandler = { [weak self] proc in
+        process.terminationHandler = { @Sendable [weak self] proc in
             let pid = proc.processIdentifier
             Task { @MainActor in
-                self?.childPIDs.remove(pid)
+                self?.processes.removeValue(forKey: pid)
             }
         }
 
         do {
             try process.run()
-            childPIDs.insert(process.processIdentifier)
+            processes[process.processIdentifier] = process
         } catch {
             throw LauncherSpawnError.spawnFailed(error.localizedDescription)
         }
     }
 
-    // MARK: - Running-app helpers (for quit-and-relaunch prompt)
+    private func reapFinished() {
+        processes = processes.filter { _, proc in proc.isRunning }
+    }
 
-    static func isAppRunning(bundleURL: URL) -> Bool {
-        let running = NSWorkspace.shared.runningApplications
-        return running.contains { app in
-            app.bundleURL?.standardizedFileURL == bundleURL.standardizedFileURL
+    /// True if this pid is one we spawned and it is still running.
+    func isOurChild(pid: Int32) -> Bool {
+        guard let proc = processes[pid] else { return false }
+        return proc.isRunning
+    }
+
+    /// Activate an already-running child / instance (no respawn).
+    static func activateRunning(bundleIdentifier: String?, appURL: URL) {
+        let apps = matchingApps(bundleIdentifier: bundleIdentifier, appURL: appURL)
+        for app in apps {
+            app.activate(options: [.activateAllWindows])
         }
     }
 
-    static func terminateRunning(bundleURL: URL) {
-        let matches = NSWorkspace.shared.runningApplications.filter {
-            $0.bundleURL?.standardizedFileURL == bundleURL.standardizedFileURL
+    // MARK: - Running-app helpers (bundleIdentifier-first)
+
+    static func isAppRunning(bundleIdentifier: String?, appURL: URL) -> Bool {
+        !matchingApps(bundleIdentifier: bundleIdentifier, appURL: appURL).isEmpty
+    }
+
+    static func matchingApps(bundleIdentifier: String?, appURL: URL) -> [NSRunningApplication] {
+        let running = NSWorkspace.shared.runningApplications
+        if let bid = bundleIdentifier, !bid.isEmpty {
+            let byID = running.filter { $0.bundleIdentifier == bid }
+            if !byID.isEmpty { return byID }
         }
-        for app in matches {
+        // Fallback for Other… picks without a reliable bundle id.
+        return running.filter {
+            $0.bundleURL?.standardizedFileURL == appURL.standardizedFileURL
+        }
+    }
+
+    static func terminateRunning(bundleIdentifier: String?, appURL: URL) {
+        for app in matchingApps(bundleIdentifier: bundleIdentifier, appURL: appURL) {
             app.terminate()
         }
     }
 
-    var childPIDsSnapshot: Set<Int32> { childPIDs }
+    static func forceTerminateRunning(bundleIdentifier: String?, appURL: URL) {
+        for app in matchingApps(bundleIdentifier: bundleIdentifier, appURL: appURL) {
+            app.forceTerminate()
+        }
+    }
+
+    /// Wait until matching apps have exited, or timeout. Returns true if clear.
+    static func waitUntilExited(
+        bundleIdentifier: String?,
+        appURL: URL,
+        timeoutSeconds: TimeInterval = 10
+    ) async -> Bool {
+        let deadline = Date().addingTimeInterval(timeoutSeconds)
+        while Date() < deadline {
+            let still = matchingApps(bundleIdentifier: bundleIdentifier, appURL: appURL)
+            if still.isEmpty || still.allSatisfy(\.isTerminated) {
+                // Brief settle so LaunchServices releases the single-instance lock.
+                try? await Task.sleep(nanoseconds: 150_000_000)
+                if matchingApps(bundleIdentifier: bundleIdentifier, appURL: appURL).isEmpty {
+                    return true
+                }
+            }
+            try? await Task.sleep(nanoseconds: 100_000_000)
+        }
+        return matchingApps(bundleIdentifier: bundleIdentifier, appURL: appURL).isEmpty
+    }
 }

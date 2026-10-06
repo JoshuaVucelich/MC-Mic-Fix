@@ -11,9 +11,15 @@ final class MicLevelMeter {
 
     private var engine: AVAudioEngine?
     private var tapInstalled = false
+    private var autoStopTask: Task<Void, Never>?
 
-    func start() {
-        guard !isRunning else { return }
+    /// Starts metering. Call only while the mic-test UI is intentionally open.
+    /// Auto-stops after `autoStopAfter` (default 60s).
+    func start(autoStopAfter: Duration = .seconds(60)) {
+        guard !isRunning else {
+            scheduleAutoStop(after: autoStopAfter)
+            return
+        }
         let status = AVCaptureDevice.authorizationStatus(for: .audio)
         guard status == .authorized else {
             level = 0
@@ -28,6 +34,9 @@ final class MicLevelMeter {
             return
         }
 
+        // B1: Core Audio invokes the tap on the realtime audio thread.
+        // The closure must be @Sendable and must not touch MainActor APIs
+        // except via an explicit hop after computing RMS off-actor.
         installInputTap(on: input, format: format)
         tapInstalled = true
 
@@ -35,6 +44,7 @@ final class MicLevelMeter {
             try engine.start()
             self.engine = engine
             isRunning = true
+            scheduleAutoStop(after: autoStopAfter)
         } catch {
             if tapInstalled {
                 input.removeTap(onBus: 0)
@@ -48,6 +58,8 @@ final class MicLevelMeter {
     }
 
     func stop() {
+        autoStopTask?.cancel()
+        autoStopTask = nil
         guard isRunning || engine != nil else {
             level = 0
             return
@@ -62,21 +74,29 @@ final class MicLevelMeter {
         level = 0
     }
 
-    /// Isolated so we can acknowledge the macOS 27 deprecation in one place.
-    private func installInputTap(on input: AVAudioInputNode, format: AVAudioFormat) {
-        // AVAudioNode.installTap is deprecated in macOS 27 but remains the supported
-        // way to read input levels without a full Voice-Processing IO unit setup.
-        // Revisit when Apple documents a non-deprecated replacement for metering.
-        input.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
+    private func scheduleAutoStop(after duration: Duration) {
+        autoStopTask?.cancel()
+        autoStopTask = Task { @MainActor [weak self] in
+            try? await Task.sleep(for: duration)
+            guard !Task.isCancelled else { return }
+            self?.stop()
+        }
+    }
+
+    /// nonisolated so the compiler does not infer a main-actor tap closure.
+    nonisolated private func installInputTap(on input: AVAudioInputNode, format: AVAudioFormat) {
+        // installTap is deprecated in macOS 27 but still the practical metering path.
+        input.installTap(onBus: 0, bufferSize: 1024, format: format) { @Sendable [weak self] buffer, _ in
             let rms = Self.rms(of: buffer)
+            let mapped = min(1, max(0, rms * 8))
             Task { @MainActor in
-                let mapped = min(1, max(0, rms * 8))
-                self?.level = (self?.level ?? 0) * 0.6 + mapped * 0.4
+                guard let self, self.isRunning else { return }
+                self.level = self.level * 0.6 + mapped * 0.4
             }
         }
     }
 
-    private static func rms(of buffer: AVAudioPCMBuffer) -> Float {
+    nonisolated private static func rms(of buffer: AVAudioPCMBuffer) -> Float {
         guard let channelData = buffer.floatChannelData?[0] else { return 0 }
         let frameLength = Int(buffer.frameLength)
         guard frameLength > 0 else { return 0 }

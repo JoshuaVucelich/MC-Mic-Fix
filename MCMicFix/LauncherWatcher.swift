@@ -11,7 +11,6 @@ final class LauncherWatcher {
     private var catalogProvider: (() -> LauncherCatalog)?
     private var isEnabled: (() -> Bool)?
     private var ourChildPIDs: (() -> Set<Int32>)?
-    /// Ignore launches we ourselves just started (pid match + short grace).
     private var recentSelfLaunchUntil: Date = .distantPast
 
     func start(
@@ -29,7 +28,6 @@ final class LauncherWatcher {
             object: nil,
             queue: .main
         ) { [weak self] note in
-            // Extract Sendable fields before hopping to MainActor (Swift 6).
             guard let app = note.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication else {
                 return
             }
@@ -60,6 +58,12 @@ final class LauncherWatcher {
         if ourChildPIDs?().contains(pid) == true { return }
         if Date() < recentSelfLaunchUntil { return }
 
+        // If we are anywhere in the parent chain, this is our spawn (or a re-exec
+        // of it) — do not treat as foreign / autoRelaunch loop.
+        if isAncestor(of: pid, candidate: ProcessInfo.processInfo.processIdentifier) {
+            return
+        }
+
         guard let bundleURL else { return }
         guard let catalog = catalogProvider?() else { return }
 
@@ -69,11 +73,22 @@ final class LauncherWatcher {
         }
         guard let launcher = match else { return }
 
-        if let parent = parentPID(of: pid), parent == ProcessInfo.processInfo.processIdentifier {
-            return
-        }
-
         onForeignLaunch?(launcher)
+    }
+
+    /// Walk ppid via sysctl until init; true if `candidate` appears as an ancestor of `pid`.
+    private func isAncestor(of pid: Int32, candidate: Int32) -> Bool {
+        var current = pid
+        var guardCount = 0
+        while current > 1, guardCount < 64 {
+            guard let parent = parentPID(of: current), parent > 0, parent != current else {
+                return false
+            }
+            if parent == candidate { return true }
+            current = parent
+            guardCount += 1
+        }
+        return false
     }
 
     private func parentPID(of pid: Int32) -> Int32? {
