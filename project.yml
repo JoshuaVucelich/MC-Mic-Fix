@@ -2,13 +2,13 @@ name: MC Mic Fix
 options:
   bundleIdPrefix: com.vwsdigital
   deploymentTarget:
-    macOS: "27.0"
+    macOS: "14.0"
   createIntermediateGroups: true
   developmentLanguage: en
 settings:
   base:
     SWIFT_VERSION: "6.0"
-    MACOSX_DEPLOYMENT_TARGET: "27.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
     DEVELOPMENT_TEAM: CX3YG978N4
     CODE_SIGN_STYLE: Automatic
     ENABLE_HARDENED_RUNTIME: YES
