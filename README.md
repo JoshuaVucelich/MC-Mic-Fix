@@ -4,6 +4,15 @@ MC Mic Fix is a free macOS menu-bar and launcher app. It fixes the Minecraft pro
 
 This is not a Fabric mod. You do not install it in a mods folder. It lives in the menu bar, asks macOS for the microphone, and starts your Minecraft launcher so voice chat can hear you.
 
+Anyone can fork it, change it, and make and share their own versions.
+
+## Download
+
+- Latest GitHub Release: [MC-Mic-Fix-macOS.zip](https://github.com/JoshuaVucelich/MC-Mic-Fix/releases/latest/download/MC-Mic-Fix-macOS.zip)
+- Website: [joshuavucelich.com/software/mc-mic-fix](https://joshuavucelich.com/software/mc-mic-fix)
+
+The download is notarized and stapled by Apple (Developer ID Application: Joshua Vucelich).
+
 ## Why it exists
 
 macOS TCC attributes microphone access to the **responsible process**. When you open a Minecraft launcher from the Dock, that launcher (or nothing useful) becomes responsible, and the official Minecraft launcher never declares microphone usage. Voice-chat mods (Simple Voice Chat, Plasmo Voice) then get silence.
@@ -20,7 +29,7 @@ If the selected launcher is already running, the app offers **Quit and relaunch 
 
 ## Requirements
 
-- macOS 27.0+
+- macOS 14 Sonoma or later
 - A Minecraft launcher installed under `/Applications` or `~/Applications`
 
 ## Build
@@ -34,4 +43,4 @@ xcodebuild -scheme 'MC Mic Fix' -configuration Debug -destination 'platform=macO
 
 ## License
 
-The source is public on GitHub. This repo is the app source, not a notarized download.
+[CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). See [LICENSE](LICENSE).
