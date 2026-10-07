@@ -39,6 +39,22 @@ struct OnboardingView: View {
             }
             .padding()
         }
+        .onAppear {
+            closeWelcomeWindowIfOnboardingFinished()
+        }
+    }
+
+    /// macOS 14 has no `defaultLaunchBehavior(.suppressed)` (macOS 15.0+).
+    /// A Window scene may present at launch. Close it when onboarding is
+    /// already finished so a returning session is not left on this window.
+    private func closeWelcomeWindowIfOnboardingFinished() {
+        guard state.hasCompletedOnboarding else { return }
+        if #available(macOS 15.0, *) {
+            return
+        }
+        Task { @MainActor in
+            NSApp.windows.first { $0.identifier?.rawValue == "onboarding" }?.close()
+        }
     }
 
     private var whyPage: some View {
